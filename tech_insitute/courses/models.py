@@ -10,10 +10,9 @@ class MandetoryFields(models.Model):
 
 class MainImages(MandetoryFields):
     Image1 = models.ImageField(upload_to="MainImages")
-    Image2 = models.ImageField(upload_to="MainImages",null=True,blank=True)
-    Image3 = models.ImageField(upload_to="MainImages",null=True,blank=True)
-    Image4 = models.ImageField(upload_to="MainImages",null=True,blank=True)
-    Image5 = models.ImageField(upload_to="MainImages",null=True,blank=True)
+    link = models.URLField(null=True,blank=True)
+    is_active = models.BooleanField(default=False)
+
 
 class CoursesCategory(MandetoryFields):
     name = models.CharField(max_length=200)
@@ -35,6 +34,7 @@ class Courses(MandetoryFields):
     duration_days = models.IntegerField()
     Discription1 = models.TextField()
     Discription2 = models.TextField(null=True,blank=True)
+    Discription3 = models.TextField(null=True,blank=True)
     CourseFile = models.FileField(upload_to="CourseFile")
     CourseFile2 = models.FileField(upload_to="CourseFile",null=True,blank=True)
     is_active = models.BooleanField(default=False)
