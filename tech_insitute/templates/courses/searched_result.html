@@ -1,0 +1,66 @@
+{% extends "main.html" %}
+
+{% block common %}
+
+
+  <div class="recent-listing">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h4>Searched Courses</h4>
+<!--            <h6>Check Them Out</h6>-->
+          </div>
+        </div>
+        {% for i in courses_data %}
+        <div class="col-lg-12">
+          <div class="owl-carousel owl-listing">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="listing-item">
+                    {% if i.image1 %}
+                    <div class="left-image">
+                      <a href="#"><img src="{{ i.image1.url }}" alt=""></a>
+                    </div>
+                    {% endif %}
+                    <div class="right-content align-self-center">
+                      <a href="#"><h4>{{ i.name }}</h4></a>
+                      <h6>{{ i.category.name }}</h6>
+                       <ul class="rate">
+<!--                         <li>start date </li>-->
+                         <li>{{ i.start_date }}</li>
+                       </ul>
+<!--                      <ul class="rate">-->
+<!--                        <li><i class="fa fa-star-o"></i></li>-->
+<!--                        <li><i class="fa fa-star-o"></i></li>-->
+<!--                        <li><i class="fa fa-star-o"></i></li>-->
+<!--                        <li><i class="fa fa-star-o"></i></li>-->
+<!--                        <li><i class="fa fa-star-o"></i></li>-->
+<!--                        <li>(24) Reviews</li>-->
+<!--                      </ul>-->
+                      {% if i.price %}
+                      <span class="price"><div class="icon"><img src="assets/images/listing-icon-01.png" alt=""></div>{{ i.price }}</span>
+                      {% endif %}
+                      <span class="details">Faculty : <em>{{ i.faculty_name }}</em></span>
+<!--                      <ul class="info">-->
+<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-02.png' %]}" alt=""> 8 Bedrooms</li>-->
+<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-03.png' %" alt=""> 5 Bathrooms</li>-->
+<!--                      </ul>-->
+                      <div class="main-white-button">
+                        <a href="contact.html"><i class="fa fa-eye"></i> Register Here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

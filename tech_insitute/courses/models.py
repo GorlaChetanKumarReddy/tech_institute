@@ -24,6 +24,7 @@ class CoursesCategory(MandetoryFields):
 
 class Courses(MandetoryFields):
     name = models.CharField(max_length=200)
+    price = models.BigIntegerField(default=0)
     category = models.ForeignKey(CoursesCategory,on_delete=models.PROTECT)
     image1 = models.ImageField(upload_to="courses_images")
     faculty_name = models.CharField(max_length=150)
@@ -52,5 +53,42 @@ class CourseImages(MandetoryFields):
     Image3 = models.ImageField(upload_to="CourseImages",null=True,blank=True)
     Image4 = models.ImageField(upload_to="CourseImages",null=True,blank=True)
 
+class CourseRegister(MandetoryFields):
+    course = models.ForeignKey(Courses,on_delete=models.PROTECT)
+    user = models.ForeignKey(User,on_delete=models.PROTECT,related_name="course_registerd_user")
 
+    def __str__(self):
+        return str(self.course.name)+" | "+str(self.user.first_name)
+
+class PaymentType(MandetoryFields):
+    name = models.CharField(max_length=200)
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (['name'])
+
+class FeeDetails(MandetoryFields):
+    payment_type = models.ForeignKey(PaymentType,on_delete=models.PROTECT)
+    payment_id = models.AutoField(primary_key=True)
+    course = models.ForeignKey(Courses,on_delete=models.PROTECT)
+    user = models.ForeignKey(User,on_delete=models.PROTECT,related_name="fee_paid_user")
+    discount = models.DecimalField(decimal_places=1,max_digits=100)
+    pay_price = models.DecimalField(decimal_places=1,max_digits=100)
+    paid_slip = models.FileField(upload_to="Fees_Documents")
+    paid_slip_2 = models.FileField(upload_to="Fees_Documents")
+    paid_approve_course_join = models.BooleanField(default=False)
+
+
+    # def save(self, force_insert=False, force_update=False):
+    #     if self.payment_id == "":
+    #         payment_id_starts = "PAYMENT_ID :"
+    #         fee_last_object = FeeDetails.objects.last()
+    #         payment_id_last = fee_last_object.payment_id
+    #         model_data = super(FeeDetails,self).save(force_insert,force_update)
+
+    def __str__(self):
+        return str(self.course.name)+" | "+str(self.user.first_name)
+
+    # class Meta:
+    #     ordering = "pk"
 
