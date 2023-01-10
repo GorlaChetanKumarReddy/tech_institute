@@ -5,7 +5,7 @@ from django.db.models import Q
 
 
 def search_courses(request):
-    course_id = request.GET.get("area")
+    course_id = request.GET.get("course_id")
     if course_id == "all":
         course_id = CoursesModels.Courses.objects.all().values_list("id",flat=True)
     else:
