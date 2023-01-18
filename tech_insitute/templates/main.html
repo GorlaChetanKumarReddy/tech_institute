@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +57,16 @@ https://templatemo.com/tm-564-plot-listing
               <li><a href="category.html">Category</a></li>
               <li><a href="listing.html">Listing</a></li>
               <li><a href="contact.html">Contact Us</a></li>
-              <li><div class="main-white-button"><a href="#"><i class="fa fa-plus"></i> Add Your Listing</a></div></li>
+               {% if user.is_authenticated %}
+<!--                  <h1>My Google Login Project</h1>-->
+<!--               <p>Welcome, {{ user.username }} !</p>-->
+<!--                  <h6>Email: {{ user.account_provider }}</h6>-->
+<!--                  <h6>Email: {{ user.get_provider }}</h6>-->
+<!--                 <h6>Logout:<a href="{% url "logout" %}">logout</a></h6>-->
+              <li><div class="main-white-button"><a href="{% url 'logout' %}"><i class="fa fa-plus"></i>Logout {{ user.email }}</a></div></li>
+              {% else %}
+              <li><div class="main-white-button"><a href="{% provider_login_url 'google' %}"><i class="fa fa-plus"></i> Login with Google</a></div></li>
+              {% endif %}
             </ul>
             <a class='menu-trigger'>
                 <span>Menu</span>

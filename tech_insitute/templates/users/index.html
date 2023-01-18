@@ -2,7 +2,6 @@
 
 {% block common %}
 
-
 <div class="main-banner">
     <div class="container">
       <div class="row">
@@ -35,8 +34,8 @@
               <div class="col-lg-3 align-self-center">
                   <fieldset>
                       <select name="price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
-                            {% for i in data %}
-                          <option value="$100 - $250">{{ i.category.name }}</option>
+                            {% for i in course_types %}
+                          <option value="$100 - $250">{{ i.name }}</option>
                           {% endfor %}}
 
                       </select>
