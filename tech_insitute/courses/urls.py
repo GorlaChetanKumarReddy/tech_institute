@@ -19,4 +19,7 @@ from courses import views
 
 urlpatterns = [
     path('search_courses/',views.search_courses,name='search_courses'),
+    path('my_course_certivificate/',views.get_certivificate,name='my_course_certivificate'),
+    path('view_course/',views.view_course,name='view_course'),
+    path('download_course_detail_file/',views.download_course_detail_file,name='download_course_detail_file'),
 ]

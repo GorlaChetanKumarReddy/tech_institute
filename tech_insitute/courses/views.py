@@ -2,21 +2,37 @@ from django.shortcuts import render
 from users import models as UserModels
 from courses import models as CoursesModels
 from django.db.models import Q
+from courses.get_data_filtered_models import Courses as GetAvailableObjects
 
 
 def search_courses(request):
     course_id = request.GET.get("course_id")
     if course_id == "all":
-        course_id = CoursesModels.Courses.objects.all().values_list("id",flat=True)
+        course_id = GetAvailableObjects.get_available_all_objs(CoursesModels.Courses.objects.all()).values_list("id",flat=True)
     else:
         course_id = [course_id]
     category_id = request.GET.get("category_id")
     search_text = request.GET.get("search_text")
-    course_objects = CoursesModels.Courses.objects.filter(Q(name__icontains=search_text)| Q(category__name=search_text)).filter(is_active=True,id__in=course_id).order_by("-id")
-
+    course_objects = GetAvailableObjects.get_available_all_objs(CoursesModels.Courses.objects.filter(Q(name__icontains=search_text)| Q(category__name=search_text)).filter(id__in=course_id)).order_by("-id")
     return_data = {"courses_data":course_objects}
     return render(request,'courses/searched_result.html',return_data)
 
+def view_course(request):
+    course_id = request.GET.get("course_id")
+    course_objects = GetAvailableObjects.get_available_last_obj(CoursesModels.Courses.objects.filter(id=course_id))
+    Course_Images = CoursesModels.CourseImages.objects.filter(course_id=course_id)
+    return_data = {"courses_data":course_objects,'CourseImages':Course_Images}
+
+    return render(request,'courses/view_course.html',return_data)
+
+def download_course_detail_file(request):
+    if request.user.is_authenticated:
+        user_obj = request.user
+    course_id = request.GET.get("course_id")
+
+    courses_obj = GetAvailableObjects.get_available_last_obj(CoursesModels.Courses.objects.filter(id=course_id))
+
+    courses_obj.CourseFile
 
 def create_zoom_meeting(request):
     import jwt
@@ -94,3 +110,9 @@ def create_zoom_meeting(request):
     # run the create meeting function
     createMeeting()
     return None
+
+
+from courses.Certivificates import first_certivificates
+def get_certivificate(request):
+
+    return first_certivificates

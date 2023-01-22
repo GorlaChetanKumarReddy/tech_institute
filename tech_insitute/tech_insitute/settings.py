@@ -174,3 +174,6 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+'''login create account will remove'''
+SOCIALACCOUNT_LOGIN_ON_GET=True

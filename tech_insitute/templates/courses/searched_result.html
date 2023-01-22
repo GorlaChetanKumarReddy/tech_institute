@@ -21,11 +21,11 @@
                   <div class="listing-item">
                     {% if i.image1 %}
                     <div class="left-image">
-                      <a href="#"><img src="{{ i.image1.url }}" alt=""></a>
+                      <a href="{% url 'view_course' %}?course_id={{ i.id }}"><img src="{{ i.image1.url }}" alt=""></a>
                     </div>
                     {% endif %}
                     <div class="right-content align-self-center">
-                      <a href="#"><h4>{{ i.name }}</h4></a>
+                      <a href="{% url 'view_course' %}?course_id={{ i.id }}""><h4>{{ i.name }}</h4></a>
                       <h6>{{ i.category.name }}</h6>
                        <ul class="rate">
 <!--                         <li>start date </li>-->

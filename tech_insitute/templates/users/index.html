@@ -1,5 +1,5 @@
 {% extends "main.html" %}
-
+{% load static %}
 {% block common %}
 
 <div class="main-banner">
@@ -62,67 +62,98 @@
     </div>
   </div>
 
+<table align="center" class="padding50p" id="first_page_listing">
+    <tr>
+        <td>
+            <table align="center" class="table table-hover">
+              <thead>
+                <tr class="table table-dark table-hover">
+                  <th>Course Name</th>
+                  <th>Faculty</th>
+                  <th>Start Date</th>
+                  <th>Duration</th>
+                  <th>register</th>
+                </tr>
+              </thead>
+          <tbody>
+          {% for i in data %}
+                <tr>
+                    <td><a href="{% url 'view_course' %}?course_id={{ i.id }}">{{ i.name }}</a></td>
+                  <td>{{ i.faculty_name }}</td>
+                  <td>{{ i.start_date }} {{ i.start_timing }}</td>
+                  <td>days ({{ i.duration_days }})</td>
+                 <td>
+                      <button type="button" class="btn btn-warning">register</button>
+                  </td>
+                </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </td>
+    </tr>
+</table>
 
-<div class="recent-listing">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h4>New Courses</h4>
-<!--            <h6>Check Them Out</h6>-->
-          </div>
-        </div>
-        {% for i in data %}
-        <div class="col-lg-12">
-          <div class="owl-carousel owl-listing">
-            <div class="item">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="listing-item">
-                    {% if i.image1 %}
-                    <div class="left-image">
-                      <a href="#"><img src="{{ i.image1.url }}" alt=""></a>
-                    </div>
-                    {% endif %}
-                    <div class="right-content align-self-center">
-                      <a href="#"><h4>{{ i.name }}</h4></a>
-                      <h6>{{ i.category.name }}</h6>
-                       <ul class="rate">
-<!--                         <li>start date </li>-->
-                         <li>start date {{ i.start_date }}</li>
-                       </ul>
-<!--                      <ul class="rate">-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li>(24) Reviews</li>-->
-<!--                      </ul>-->
-                      {% if i.price %}
-<!--                      <span class="price"><div class="icon"><img src="assets/images/listing-icon-01.png" alt=""></div>{{ i.price }}</span>-->
-                      <span class="price"><div class="icon"></div>Rs : {{ i.price }}</span>
-                        {% else %}
-                        <span class="price"><div class="icon"></div>Free</span>
-                      {% endif %}
-                      <span class="details">Faculty : <em>{{ i.faculty_name }}</em></span>
-<!--                      <ul class="info">-->
-<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-02.png' %]}" alt=""> 8 Bedrooms</li>-->
-<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-03.png' %" alt=""> 5 Bathrooms</li>-->
-<!--                      </ul>-->
-                      <div class="main-white-button">
-                        <a href="contact.html"><i class="fa fa-eye"></i> Register Here</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
+
+<!--<div class="recent-listing">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-lg-12">-->
+<!--          <div class="section-heading">-->
+<!--            <h4>New Courses</h4>-->
+<!--&lt;!&ndash;            <h6>Check Them Out</h6>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        {% for i in data %}-->
+<!--        <div class="col-lg-12">-->
+<!--          <div class="owl-carousel owl-listing">-->
+<!--            <div class="item">-->
+<!--              <div class="row">-->
+<!--                <div class="col-lg-12">-->
+<!--                  <div class="listing-item">-->
+<!--                    {% if i.image1 %}-->
+<!--                    <div class="left-image">-->
+<!--                      <a href="#"><img src="{{ i.image1.url }}" alt=""></a>-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--                    <div class="right-content align-self-center">-->
+<!--                      <a href="#"><h4>{{ i.name }}</h4></a>-->
+<!--                      <h6>{{ i.category.name }}</h6>-->
+<!--                       <ul class="rate">-->
+<!--&lt;!&ndash;                         <li>start date </li>&ndash;&gt;-->
+<!--                         <li>start date {{ i.start_date }}</li>-->
+<!--                       </ul>-->
+<!--&lt;!&ndash;                      <ul class="rate">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><i class="fa fa-star-o"></i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><i class="fa fa-star-o"></i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><i class="fa fa-star-o"></i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><i class="fa fa-star-o"></i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><i class="fa fa-star-o"></i></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li>(24) Reviews</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
+<!--                      {% if i.price %}-->
+<!--&lt;!&ndash;                      <span class="price"><div class="icon"><img src="assets/images/listing-icon-01.png" alt=""></div>{{ i.price }}</span>&ndash;&gt;-->
+<!--                      <span class="price"><div class="icon"></div>Rs : {{ i.price }}</span>-->
+<!--                        {% else %}-->
+<!--                        <span class="price"><div class="icon"></div>Free</span>-->
+<!--                      {% endif %}-->
+<!--                      <span class="details">Faculty : <em>{{ i.faculty_name }}</em></span>-->
+<!--&lt;!&ndash;                      <ul class="info">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><img src="{% static 'first_template/assets/images/listing-icon-02.png' %]}" alt=""> 8 Bedrooms</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><img src="{% static 'first_template/assets/images/listing-icon-03.png' %" alt=""> 5 Bathrooms</li>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
+<!--                      <div class="main-white-button">-->
+<!--                        <a href="contact.html"><i class="fa fa-eye"></i> Register Here</a>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
 {% endblock %}

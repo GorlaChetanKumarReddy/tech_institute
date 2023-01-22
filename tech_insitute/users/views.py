@@ -10,9 +10,9 @@ from django.contrib.auth import logout
 
 def Main_Page(request):
     course_types = CoursesModels.CoursesCategory.objects.all()
-    five_days_from =  (datetime.datetime.now() - datetime.timedelta(days=7)).date()
+    five_days_from =  (datetime.datetime.now() - datetime.timedelta(days=30)).date()
     main_images = CoursesModels.MainImages.objects.filter(is_active=True).order_by("-id")
-    courses_data = CoursesModels.Courses.objects.filter(is_active=True,start_date__gte=five_days_from).order_by("-id")
+    courses_data = CoursesModels.Courses.objects.filter(start_date__gte=five_days_from).order_by("-id")
     data = {"data":courses_data,"main_images":main_images,"course_types":course_types}
     return render(request,'users/index.html',data)
 
