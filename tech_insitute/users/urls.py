@@ -20,4 +20,5 @@ from users import views
 urlpatterns = [
     path('',views.Main_Page,name="main_page"),
     path('logout/',views.logout_page,name="logout"),
+    path('user_courses/',views.user_courses,name="user_courses"),
 ]

@@ -3,7 +3,8 @@ from users import models as UserModels
 from courses import models as CoursesModels
 import datetime
 from django.contrib.auth import logout
-
+from users.user_conditions_and_short_data_returns.user_conditions1 import is_user_authenticated
+from users.user_conditions_and_short_data_returns import user_return_data
 # from courses import courses_data_functions as CoursesData
 
 
@@ -19,3 +20,16 @@ def Main_Page(request):
 def logout_page(request):
     logout(request)
     return Main_Page(request)
+
+def user_courses(request):
+    if is_user_authenticated(request):
+        user = user_return_data.login_user(request)
+        registerd_courses = CoursesModels.CourseRegister.objects.filter(user=user)
+        paid_enrolled_courses = CoursesModels.FeeDetails.objects.filter(user=user)
+        context = {"registerd_courses":registerd_courses,"paid_enrolled_courses":paid_enrolled_courses}
+        return render(request,"users/user_courses.html",context=context)
+    else:
+        return user_return_data.login_page(request)
+
+
+
