@@ -89,10 +89,11 @@ class Courses(MandetoryFields):
                 values=values_li
             )
         except Exception as e:
-            print(str(e))
+            super(Courses, self).save(force_insert, force_update)
+            coobj = Courses.objects.filter(id=self.id).last()
             UpObj = Updated_Courses()
             UpObj.added_by = self.added_by
-            UpObj.course_id = self.id
+            UpObj.course = coobj
             UpObj.name = self.name
             UpObj.price = self.price
             UpObj.category = self.category
@@ -119,7 +120,6 @@ class Courses(MandetoryFields):
             UpObj.title_4 = self.title_4
             UpObj.title_4_data = self.title_4_data
             UpObj.save()
-        super(Courses, self).save(force_insert, force_update)
 
 
 class Updated_Courses(MandetoryFields):
