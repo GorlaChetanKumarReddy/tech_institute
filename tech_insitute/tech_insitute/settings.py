@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-6&l6)+wpouhe0bphhnxyiidq-u0f!2!&g47+b5s8gwp7355oi^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+import os
+
 ALLOWED_HOSTS = []
 
 
@@ -39,6 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'courses',
+
+    'allauth',
+    # 'django.contrib.sites',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +125,55 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+'''social auth'''
+
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '159742606053-5gqlhltph7uru0se3uthnkcmn39u0vuq.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    },
+    'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+}
+SOCIALACCOUNT_QUERY_EMAIL=True
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['profile', 'email']
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+'''login create account will remove'''
+SOCIALACCOUNT_LOGIN_ON_GET=True
