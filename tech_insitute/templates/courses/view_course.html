@@ -1,0 +1,111 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block common %}
+
+
+  <div class="recent-listing" style="padding-top: 100px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h4>Course Details</h4>
+<!--            <h6>Check Them Out</h6>-->
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="owl-carousel owl-listing">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="listing-item">
+                    {% if courses_data.image1 %}
+                    <div class="left-image">
+                        <div class="col-lg-10 offset-lg-1">
+                          <ul class="categories">
+                              {% for y in CourseImages %}
+                            <li><a href="category.html"><span class="icon"><img src="{{ y.Image2.url }}" alt="Home"></span></a></li>
+                            <li><a href="category.html"><span class="icon"><img src="{{ y.Image3.url }}" alt="Home"></span></a></li>
+                            <li><a href="category.html"><span class="icon"><img src="{{ y.Image4.url }}" alt="Home"></span></a></li>
+                              {% endfor %}
+                          </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="right-content align-self-center">
+                      <a href="#"><h4>{{ courses_data.name }}</h4></a>
+                      <h6>{{ courses_data.category.name }}</h6>
+                       <ul class="rate">
+<!--                         <li>start date </li>-->
+                         <li>{{ courses_data.start_date }}</li>
+                       </ul>
+                      <ul class="rate">
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li>(24) Reviews</li>
+                      </ul>
+                      {% if courses_data.price %}
+                      <span class="price"><div class="icon"><img src="assets/images/listing-icon-01.png" alt=""></div>{{ courses_data.price }}</span>
+                      {% endif %}
+                      <span class="details">Faculty : <em>{{ courses_data.faculty_name }}</em></span>
+                      <ul class="info">
+                          <li>Course File :
+                              <a href="{{ MEDIA_URL }}{{ courses_data.CourseFile.url }} " target="_blank">
+                              <button type="button" class="btn btn-secondary btn-sm">Download</button>
+                              </a>
+                          </li>
+<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-02.png' %}" alt="">Download File</li>-->
+<!--                        <li><img src="{% static 'first_template/assets/images/listing-icon-03.png' %}" alt=""> 5 Bathrooms</li>-->
+                      </ul>
+                      <div class="main-white-button">
+                        <a href="contact.html"><i class="fa fa-eye"></i> Register Here</a>
+                      </div>
+                        <div class="paddingandtextsize">
+                            {{ courses_data.Discription1|default:"--" }}
+                        </div>
+                        <div class="paddingandtextsize">
+                            <h1>{{ courses_data.title_1|default:"--" }}</h1>
+                        </div>
+                        <div class="paddingandtextsize">
+                            {{ courses_data.title_1_data|default:"--" }}
+                        </div>
+                         <div class="paddingandtextsize">
+                            <h2>{{ courses_data.title_2|default:"--" }}</h2>
+                        </div>
+                        <div class="paddingandtextsize">
+                            {{ courses_data.title_2_data|default:"--" }}
+                        </div>
+                         <div class="paddingandtextsize">
+                            <h2>{{ courses_data.title_3|default:"" }}</h2>
+                        </div>
+                        <div class="paddingandtextsize">
+                            {{ courses_data.title_3_data|default:"" }}
+                        </div>
+                         <div class="paddingandtextsize">
+                            <h2>{{ courses_data.title_4|default:"" }}</h2>
+                        </div>
+                        <div class="paddingandtextsize">
+                            {{ courses_data.title_4_data|default:"" }}
+                        </div>
+                         <div class="paddingandtextsize">
+                            {{ courses_data.Discription2|default:"--" }}
+                        </div>
+                         <div class="paddingandtextsize">
+                            {{ courses_data.Discription3|default:"--" }}
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
