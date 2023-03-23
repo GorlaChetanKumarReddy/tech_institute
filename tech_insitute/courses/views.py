@@ -3,7 +3,8 @@ from users import models as UserModels
 from courses import models as CoursesModels
 from django.db.models import Q
 from courses.get_data_filtered_models import Courses as GetAvailableObjects
-
+from users.user_conditions_and_short_data_returns.user_conditions1 import is_user_authenticated
+from users.user_conditions_and_short_data_returns import user_return_data
 
 def search_courses(request):
     course_id = request.GET.get("course_id")
@@ -116,3 +117,22 @@ from courses.Certivificates import first_certivificates
 def get_certivificate(request):
 
     return first_certivificates
+
+def user_courses(request):
+    if is_user_authenticated(request):
+        user = user_return_data.login_user(request)
+        registerd_courses = CoursesModels.CourseRegister.objects.filter(user=user)
+        paid_enrolled_courses = CoursesModels.FeeDetails.objects.filter(user=user)
+        context = {"registerd_courses":registerd_courses,"paid_enrolled_courses":paid_enrolled_courses}
+        return render(request,"users/user_courses.html",context=context)
+    else:
+        return user_return_data.login_page(request)
+
+def register_courses(request):
+    if is_user_authenticated(request):
+        course_id = request.POST.get("course_id")
+        user = user_return_data.login_user(request)
+        create,get_course = CoursesModels.CourseRegister.objects.get_or_create(user=user,course_id=course_id,added_by=user)
+        return view_course(request)
+    else:
+        return user_return_data.login_page(request)

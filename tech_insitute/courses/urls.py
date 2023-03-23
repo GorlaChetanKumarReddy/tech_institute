@@ -22,4 +22,6 @@ urlpatterns = [
     path('my_course_certivificate/',views.get_certivificate,name='my_course_certivificate'),
     path('view_course/',views.view_course,name='view_course'),
     path('download_course_detail_file/',views.download_course_detail_file,name='download_course_detail_file'),
+    path('register_courses/', views.register_courses, name="register_courses"),
+    path('user_courses/', views.user_courses, name="user_courses"),
 ]
